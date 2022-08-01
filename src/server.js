@@ -10,7 +10,7 @@ const app = express();
 // 그 사이에 application값 설정!!
 
 const handleHome = (req, res) => {
-  return res.send("I'm still wating you");
+  return res.send("<h1>I'm still wating you</h1>");
 };
 
 const handleLogin = (req, res) => {
