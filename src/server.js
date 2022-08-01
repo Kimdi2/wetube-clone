@@ -9,7 +9,16 @@ const app = express();
 // listen(PORT, handleListening) 으로 외부 접속 시작(listen)
 // 그 사이에 application값 설정!!
 
-app.get("/", () => console.log("Somebody is trying to go home."));
+const handleHome = (req, res) => {
+  return res.send("I'm still wating you");
+};
+
+const handleLogin = (req, res) => {
+  return res.send("Login Here");
+};
+
+app.get("/", handleHome);
+app.get("/login", handleLogin);
 
 const handleListening = () =>
   console.log(`✅✅ Sever listening on port http://localhost:${PORT} ✅✅`);
