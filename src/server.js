@@ -9,16 +9,28 @@ const app = express();
 // listen(PORT, handleListening) 으로 외부 접속 시작(listen)
 // 그 사이에 application값 설정!!
 
-const gossipMiddleware = (req, res, next) => {
-  console.log(`Someone is going to: ${req.url}`);
+const logger = (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
   next();
+};
+
+const privateMiddleware = (req, res, next) => {
+  const url = req.url;
+  if (url === "/protected") {
+    return res.send("<h1>Not Allowed</h1>");
+  } else {
+    console.log("Allowed, you may continue");
+    next();
+  }
 };
 
 const handleHome = (req, res) => {
   return res.send("<h1>I'm still wating you</h1>");
 };
 
-app.get("/", gossipMiddleware, handleHome);
+app.use(logger);
+app.use(privateMiddleware);
+app.get("/", handleHome);
 
 const handleListening = () =>
   console.log(`✅✅ Sever listening on port http://localhost:${PORT} ✅✅`);
