@@ -16,8 +16,9 @@ app.use(logger);
 // app = express()로 application 만듦
 // listen(PORT, handleListening) 으로 외부 접속 시작(listen)
 // 그 사이에 application값 설정!!
-
 app.set("view engine", "pug");
+// changing views default directory
+app.set("views", process.cwd() + "/src/views");
 // router
 app.use("/", globalRouter);
 app.use("/users", userRouter);
