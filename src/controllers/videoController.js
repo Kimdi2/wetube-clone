@@ -38,7 +38,15 @@ export const getEdit = (req, res) => {
   const video = videos[id - 1];
   return res.render("edit", { pageTitle: `Editting: ${video.title}`, video });
 };
-export const postEdit = (req, res) => {};
+export const postEdit = (req, res) => {
+  const { id } = req.params;
+  // === const id = req.params.id;
+  const title = req.body.title;
+  //  === const { title } = req.params
+  // 실제로 이렇게 사용하지는 않고, fake database이기 때문에 사용(밑의 내용)
+  videos[id - 1].title = title;
+  return res.redirect(`/videos/${id}`);
+};
 
 export const search = (req, res) => res.send("Search");
 export const upload = (req, res) => res.send("Upload");

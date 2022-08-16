@@ -19,6 +19,8 @@ app.use(logger);
 app.set("view engine", "pug");
 // changing views default directory
 app.set("views", process.cwd() + "/src/views");
+
+app.use(express.urlencoded({ extended: true }));
 // router
 app.use("/", globalRouter);
 app.use("/users", userRouter);
