@@ -1,13 +1,9 @@
-import "./db";
-import "./models/Video";
 import express from "express";
 import morgan from "morgan";
 
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-
-const PORT = 4000;
 
 const app = express();
 //log setting and execute
@@ -30,7 +26,4 @@ app.use("/videos", videoRouter);
 
 app.get("/protected", (req, res) => res.send("<h1>Protected</h1>"));
 
-const handleListening = () =>
-  console.log(`✅✅ Sever listening on port http://localhost:${PORT} ✅✅`);
-
-app.listen(PORT, handleListening);
+export default app;
