@@ -9,16 +9,24 @@ export const home = async (req, res) => {
   console.log(videos);
   return res.render("home", { pageTitle: "Home", videos });
 };
+
 export const watch = async (req, res) => {
   const id = req.params.id;
   const video = await Video.findById(id);
-  console.log(video);
-  return res.render("watch", { pageTitle: `Watching: ${video.title}`, video });
+  // video === null  ===  !video
+  if (video === null) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+  return res.render("watch", { pageTitle: `Watch | ${video.title}`, video });
 };
 
-export const getEdit = (req, res) => {
+export const getEdit = async (req, res) => {
   const id = req.params.id;
-  return res.render("edit", { pageTitle: `Editting: ` });
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.render("404", { pageTitle: "Video not found." });
+  }
+  return res.render("edit", { pageTitle: `Edit | ${video.title}`, video });
 };
 export const postEdit = (req, res) => {
   const { id } = req.params;
