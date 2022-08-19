@@ -22,6 +22,13 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
+// Middlewares
+videoSchema.pre("save", async function () {
+  this.hashtags = this.hashtags[0]
+    .split(",")
+    .map((word) => (word.startsWith("#") ? word : `#${word}`));
+});
+
 const Video = mongoose.model("Video", videoSchema);
 // mongoose.model("mongoose에게 DB의 모델 이름을 알려주는 것", 모델의 schema)
 export default Video;
