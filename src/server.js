@@ -28,6 +28,14 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.use((req, res, next) => {
+  res.locals.owner = "you";
+  req.sessionStore.all((error, sessions) => {
+    console.log(sessions);
+    next();
+  });
+});
 // router
 app.use("/", globalRouter);
 app.use("/users", userRouter);
