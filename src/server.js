@@ -5,6 +5,7 @@ import session from "express-session";
 import globalRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import { localsMiddleware } from "./middleware";
 
 const app = express();
 //log setting and execute
@@ -29,14 +30,8 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.locals.owner = "you";
-  req.sessionStore.all((error, sessions) => {
-    console.log(sessions);
-    next();
-  });
-});
 // router
+app.use(localsMiddleware);
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
